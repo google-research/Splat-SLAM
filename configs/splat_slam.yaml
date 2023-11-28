@@ -1,0 +1,138 @@
+# Copyright 2024 Google LLC
+
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+
+#     https://www.apache.org/licenses/LICENSE-2.0
+
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+verbose: True
+stride: 1            # use every X image from the dataset 
+max_frames: -1       # use the first X images from the dataset, -1 means using all
+only_tracking: False # only do tracking without mapping if enabled
+setup_seed: 43
+device: "cuda:0"
+
+mapping:
+  online_plotting: False # render and save images online
+  every_keyframe: 1 # do mapping every X keyframes 
+  final_refine_iters: 26000 # iterations of final refinement
+  eval_before_final_ba: True
+  move_points: True # apply transformation on Gaussians to account for loop closure and BA
+  BA: False # Bundle Adjustment during 3DGS mapping - not fully implemented, but kept for reference
+  pcd_downsample: 32 # downsamples the unprojected depth map --> point cloud
+  pcd_downsample_init: 16 # first frame downsampling factor is smaller
+  adaptive_pointsize: True
+  point_size: 0.05
+  Calibration:
+    distorted: False
+  Training:
+    ssim_loss: False # use SSIM in mapping (online and refinement)
+    gt_camera: False # not implemented fully
+    alpha: 0.80 # weight (between 0 and 1) of the rgb loss compared to depth loss
+    init_itr_num: 1050
+    init_gaussian_update: 100
+    init_gaussian_reset: 500
+    init_gaussian_th: 0.005
+    init_gaussian_extent: 30
+    mapping_itr_num: 60
+    gaussian_update_every: 150 # we prune and densify once every 150 iterations.
+    gaussian_update_offset: 50
+    gaussian_th: 0.7 # used in densify and prune - minimum opacity to be kept
+    gaussian_extent: 1.0 # used in densify and prune. We prune points with larger 3d scale than 0.1 * gaussian_extent
+    gaussian_reset: 2001
+    size_threshold: 20 # used in densify and prune. We prune points that have a larger radius than 20 in screen space
+    window_size: 10
+    pose_window: 5
+    edge_threshold: 4
+    rgb_boundary_threshold: 0.01
+    kf_translation: 0.04
+    kf_min_translation: 0.02
+    kf_overlap: 0.95
+    prune_mode: 'slam'
+    spherical_harmonics: False # kept for reference, but not tested when True
+    lr:
+      cam_rot_delta: 0.003
+      cam_trans_delta: 0.001
+  opt_params:
+    iterations: 30000
+    position_lr_init: 0.00016
+    position_lr_final: 0.0000016
+    position_lr_delay_mult: 0.01
+    position_lr_max_steps: 30000
+    feature_lr: 0.0025
+    opacity_lr: 0.05
+    scaling_lr: 0.001
+    rotation_lr: 0.001
+    percent_dense: 0.01
+    lambda_dssim: 0.2
+    densification_interval: 100
+    opacity_reset_interval: 3000
+    densify_from_iter: 500
+    densify_until_iter: 15000
+    densify_grad_threshold: 0.0002
+
+  model_params:
+    sh_degree: 0
+    
+  pipeline_params:
+    convert_SHs_python: False
+    compute_cov3D_python: False
+
+tracking:
+  pretrained: /cluster/project/cvl/esandstroem/src/glorie-slam/pretrained/droid.pth
+  buffer: 512     # maximum number of keyframes that can be stored
+  beta: 0.75      # beta * Distance(R|t) + (1-beta) * Distance(I|t), refer to droid_kernels.cu:frame_distance_kernel
+  warmup: 8       # use the first X keyframes for bootstrapping the tracker
+  max_age: 50     # remove edges in the graph if they have been updated more than X times
+  mono_thres: 0.1 # in DSPO, remove the edges if the average disp error of the aligned mono disp is larger than X*average_disp
+                  # it can be set to False for keeping all edges.
+  motion_filter:
+    thresh: 4.0     # add new frame as potential keyframe if avg flow >= X pixels
+  multiview_filter:
+    thresh: 0.01    # eta in eq(6) of the paper
+    visible_num: 2  # points need to be viewed by at least X cameras
+  frontend:
+    enable_loop: True      # whether to enable loop closure
+    enable_online_ba: True # whether to enable online bundle adjustment
+    keyframe_thresh: 4.0   # remove keyframe if it is too close to the last keyframe, i.e. avg flow < X pixels
+    thresh: 16.0           # only consider edge with avg flow < X pixels
+    window: 25             # local ba window size
+    radius: 1              # build edges within local window [i-radius, i]
+    nms: 1                 # r_local in GO-SLAM paper
+    max_factors: 75        # maximum number of edges in local ba
+  backend:
+    final_ba: True # whether to enable final global bundle adjustment in the end
+    ba_freq: 20    # do online bundle adjustment every X keyframes
+    thresh: 25.0   # only consider edge with avg flow < X pixels
+    radius: 1      # build edges within local window [i-radius, i]
+    nms: 5         # r_global in GO-SLAM paper
+    # used for loop detection
+    loop_window: 25    # N_local in GO-SLAM paper
+    loop_thresh: 25.0  # only consider edge with avg flow < X pixels
+    loop_radius: 1     # build edges within local window [i-radius, i]
+    loop_nms: 12       # r_loop in GO-SLAM paper
+    BA_type: "DSPO"    # "DSPO" or "DBA" 
+    normalize: True    # whether to normalize disps after each BA iter
+
+cam:
+  ### target/output camera settings, camera_size -> resize -> crop -> target_size
+  H_edge: 0 
+  W_edge: 0 
+  H_out: 480
+  W_out: 640 
+
+meshing:
+  mesh: True
+  mesh_before_final_ba: False
+
+mono_prior:
+  depth: omnidata      # mono depth model, only omnidata supported for now
+  depth_pretrained: /cluster/project/cvl/esandstroem/src/glorie-slam/pretrained/omnidata_dpt_depth_v2.ckpt
+  predict_online: True # whether to predict the mono depth prior online, if False, need to pre-run mono prior first and store the mono depth map.

@@ -1,0 +1,15 @@
+[submodule "thirdparty/simple-knn"]
+	path = thirdparty/simple-knn
+	url = https://github.com/camenduru/simple-knn.git
+[submodule "thirdparty/diff-gaussian-rasterization-w-pose"]
+	path = thirdparty/diff-gaussian-rasterization-w-pose
+	url = https://github.com/rmurai0610/diff-gaussian-rasterization-w-pose
+[submodule "thirdparty/evaluate_3d_reconstruction_lib"]
+	path = thirdparty/evaluate_3d_reconstruction_lib
+	url = https://github.com/eriksandstroem/evaluate_3d_reconstruction_lib.git
+[submodule "thirdparty/lietorch"]
+	path = thirdparty/lietorch
+	url = https://github.com/princeton-vl/lietorch.git
+[submodule "thirdparty/simple-knn"]
+	path = thirdparty/simple-knn
+	url = https://github.com/camenduru/simple-knn.git

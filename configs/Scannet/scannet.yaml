@@ -1,0 +1,53 @@
+# Copyright 2024 Google LLC
+
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+
+#     https://www.apache.org/licenses/LICENSE-2.0
+
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+dataset: 'scannet'
+
+mapping:
+  Calibration:
+    depth_scale: 1000.0
+
+tracking:
+  warmup: 12
+  mono_thres: 0.05
+  multiview_filter:
+    thresh: 0.03  
+  frontend: 
+    window: 50  
+    radius: 2
+    nms: 0
+    max_factors: 100  
+  backend:
+    loop_window: 50
+    loop_nms: 25
+    BA_type: "DBA"
+
+cam:
+  ### original camera parameters
+  H: 480
+  W: 640
+  fx: 577.590698
+  fy: 578.729797
+  cx: 318.905426
+  cy: 242.683609
+  png_depth_scale: 1000.0 #for depth image in png format
+  ### target/output camera settings, camera_size -> resize -> crop -> target_size
+  H_edge: 8
+  W_edge: 16
+  H_out: 240
+  W_out: 320
+
+data:
+  output: /cluster/work/cvl/esandstroem/src/mono_point_slam/output/Scannet
+
