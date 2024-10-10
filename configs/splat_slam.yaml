@@ -23,7 +23,7 @@ mapping:
   online_plotting: False # render and save images online
   every_keyframe: 1 # do mapping every X keyframes 
   final_refine_iters: 26000 # iterations of final refinement
-  eval_before_final_ba: True
+  eval_before_final_ba: False
   move_points: True # apply transformation on Gaussians to account for loop closure and BA
   BA: False # Bundle Adjustment during 3DGS mapping - not fully implemented, but kept for reference
   pcd_downsample: 32 # downsamples the unprojected depth map --> point cloud
@@ -131,6 +131,7 @@ cam:
 meshing:
   mesh: True
   mesh_before_final_ba: False
+  gt_mesh_path: ''
 
 mono_prior:
   depth: omnidata      # mono depth model, only omnidata supported for now

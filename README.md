@@ -23,9 +23,8 @@
 
 
 <p align="center">
-    <img src="./media/scene00_topdown.gif" alt="teaser_video" width="65%">
+This is not an officially endorsed Google product.
 </p>
-
 
 
 <p align="center">
