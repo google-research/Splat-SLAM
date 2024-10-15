@@ -110,10 +110,10 @@ class BaseDataset(Dataset):
             cfg['cam']['distortion']) if 'distortion' in cfg['cam'] else None
 
         # retrieve input folder as temporary folder
-        tmpdir = os.environ.get('TMPDIR')
-        self.input_folder = tmpdir + '/' + cfg['data']['input_folder']
+        # tmpdir = os.environ.get('TMPDIR')
+        img_dir = cfg['data']['image_dir']
+        self.input_folder = os.path.join(img_dir, cfg['data']['input_folder'])
         
-
     def __len__(self):
         return self.n_img
 
