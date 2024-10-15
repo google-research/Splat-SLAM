@@ -19,15 +19,19 @@ import os.path as osp
 ROOT = osp.dirname(osp.abspath(__file__))
 
 setup(
-    name='droid_backends',
+    name='g_droid_backends',
     ext_modules=[
-        CUDAExtension('droid_backends',
-            include_dirs=[osp.join(ROOT, 'thirdparty/eigen')],
+        CUDAExtension('g_droid_backends',
+            include_dirs=[osp.join(ROOT, 'thirdparty/lietorch/eigen')],
             sources=[
-                'src/lib/droid.cpp',
-                'src/lib/droid_kernels.cu',
-                'src/lib/correlation_kernels.cu',
-                'src/lib/altcorr_kernel.cu',
+                # 'src/lib/droid.cpp',
+                # 'src/lib/droid_kernels.cu',
+                # 'src/lib/correlation_kernels.cu',
+                # 'src/lib/altcorr_kernel.cu',
+                'thirdparty/glorie_slam/lib/droid.cpp',
+                'thirdparty/glorie_slam/lib/droid_kernels.cu',
+                'thirdparty/glorie_slam/lib/correlation_kernels.cu',
+                'thirdparty/glorie_slam/lib/altcorr_kernel.cu',
             ],
             extra_compile_args={
                 'cxx': ['-O3'],
