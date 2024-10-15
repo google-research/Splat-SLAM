@@ -68,7 +68,7 @@ This is not an officially endorsed Google product.
 ## Installation
 1. Clone the repo using the `--recursive` flag 
 ```bash
-git clone --recursive https://github.com/eriksandstroem/splat-slam-private.git
+git clone --recursive https://github.com/eriksandstroem/splat-slam.git
 cd splat-slam-private
 ```
 2. Creating a new conda environment. 
@@ -76,10 +76,10 @@ cd splat-slam-private
 conda create --name splat-slam python=3.10
 conda activate splat-slam
 ```
-3. Install CUDA 11.7 using conda and pytorch 1.12
+3. Install CUDA 11.7 using conda and pytorch 1.13.1
 ```bash
 conda install conda-forge::cudatoolkit-dev=11.7.0
-conda install pytorch torchvision torchaudio pytorch-cuda=11.8 -c pytorch -c nvidia
+conda install pytorch==1.13.1 torchvision==0.14.1 torchaudio==0.13.1 pytorch-cuda=11.7 -c pytorch -c nvidia
 ```
 > Now make sure that "which python" points to the correct python
 executable. Also test that cuda is available
