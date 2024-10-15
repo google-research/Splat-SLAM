@@ -357,7 +357,7 @@ class Mapper(object):
 
         # online plotting
         if self.online_plotting:
-            from gaussian_splatting.utils.image_utils import psnr
+            from thirdparty.gaussian_splatting.utils.image_utils import psnr
             from src.utils.eval_utils import plot_rgbd_silhouette
             import cv2
             import numpy as np
@@ -569,7 +569,7 @@ class Mapper(object):
 
         # online plotting
         if self.online_plotting:
-            from gaussian_splatting.utils.image_utils import psnr
+            from thirdparty.gaussian_splatting.utils.image_utils import psnr
             from src.utils.eval_utils import plot_rgbd_silhouette
             import cv2
             import numpy as np
