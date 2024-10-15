@@ -54,4 +54,5 @@ cam:
   W_out: 640
 
 data:
+  dataset_root: datasets/Replica
   output: /cluster/work/cvl/esandstroem/src/splat-slam/output/Replica
