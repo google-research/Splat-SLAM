@@ -15,7 +15,7 @@
 import torch
 import torch.nn.functional as F
 
-import droid_backends
+import g_droid_backends as droid_backends
 
 
 class CorrSampler(torch.autograd.Function):
