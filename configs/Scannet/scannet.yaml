@@ -50,5 +50,5 @@ cam:
 
 data:
   dataset_root: datasets/Scannet
-  output: /cluster/work/cvl/esandstroem/src/mono_point_slam/output/Scannet
+  output: output/Scannet
 
