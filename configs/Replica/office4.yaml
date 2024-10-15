@@ -20,6 +20,6 @@ tracking:
     keyframe_thresh: 2.75 
 
 meshing:
-  gt_mesh_path: /cluster/project/cvl/esandstroem/src/glorie-slam/cull_replica_mesh/office4.ply
+  gt_mesh_path: cull_replica_mesh/office4.ply
 data:
   input_folder: office4
