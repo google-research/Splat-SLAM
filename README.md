@@ -68,7 +68,7 @@ This is not an officially endorsed Google product.
 ## Installation
 1. Clone the repo using the `--recursive` flag 
 ```bash
-git clone --recursive https://github.com/eriksandstroem/splat-slam-private.git
+git clone --recursive https://github.com/google-research/Splat-SLAM.git
 cd splat-slam-private
 ```
 2. Creating a new conda environment. 
