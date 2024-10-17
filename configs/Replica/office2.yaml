@@ -16,6 +16,6 @@ inherit_from: configs/Replica/replica.yaml
 scene: office2
 
 meshing:
-  gt_mesh_path: /cluster/project/cvl/esandstroem/src/glorie-slam/cull_replica_mesh/office2.ply
+  gt_mesh_path: cull_replica_mesh/office2.ply
 data:
   input_folder: office2

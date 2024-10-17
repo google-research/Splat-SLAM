@@ -16,6 +16,6 @@ inherit_from: configs/Replica/replica.yaml
 scene: room2
 
 meshing:
-  gt_mesh_path: /cluster/project/cvl/esandstroem/src/glorie-slam/cull_replica_mesh/room2.ply
+  gt_mesh_path: cull_replica_mesh/room2.ply
 data:
   input_folder: room2

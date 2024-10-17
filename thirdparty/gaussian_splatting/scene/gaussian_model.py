@@ -18,7 +18,7 @@ from plyfile import PlyData, PlyElement
 from simple_knn._C import distCUDA2
 from torch import nn
 
-from gaussian_splatting.utils.general_utils import (
+from thirdparty.gaussian_splatting.utils.general_utils import (
     build_rotation,
     build_scaling_rotation,
     get_expon_lr_func,
@@ -26,9 +26,9 @@ from gaussian_splatting.utils.general_utils import (
     inverse_sigmoid,
     strip_symmetric,
 )
-from gaussian_splatting.utils.graphics_utils import BasicPointCloud, getWorld2View2
-from gaussian_splatting.utils.sh_utils import RGB2SH
-from gaussian_splatting.utils.system_utils import mkdir_p
+from thirdparty.gaussian_splatting.utils.graphics_utils import BasicPointCloud, getWorld2View2
+from thirdparty.gaussian_splatting.utils.sh_utils import RGB2SH
+from thirdparty.gaussian_splatting.utils.system_utils import mkdir_p
 
 
 class GaussianModel:

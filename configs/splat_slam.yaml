@@ -86,7 +86,7 @@ mapping:
     compute_cov3D_python: False
 
 tracking:
-  pretrained: /cluster/project/cvl/esandstroem/src/glorie-slam/pretrained/droid.pth
+  pretrained: pretrained/droid.pth
   buffer: 512     # maximum number of keyframes that can be stored
   beta: 0.75      # beta * Distance(R|t) + (1-beta) * Distance(I|t), refer to droid_kernels.cu:frame_distance_kernel
   warmup: 8       # use the first X keyframes for bootstrapping the tracker
@@ -135,5 +135,5 @@ meshing:
 
 mono_prior:
   depth: omnidata      # mono depth model, only omnidata supported for now
-  depth_pretrained: /cluster/project/cvl/esandstroem/src/glorie-slam/pretrained/omnidata_dpt_depth_v2.ckpt
+  depth_pretrained: pretrained/omnidata_dpt_depth_v2.ckpt
   predict_online: True # whether to predict the mono depth prior online, if False, need to pre-run mono prior first and store the mono depth map.

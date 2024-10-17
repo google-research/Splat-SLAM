@@ -17,8 +17,8 @@ from diff_gaussian_rasterization import (
     GaussianRasterizer,
 )
 
-from gaussian_splatting.scene.gaussian_model import GaussianModel
-from gaussian_splatting.utils.sh_utils import eval_sh
+from thirdparty.gaussian_splatting.scene.gaussian_model import GaussianModel
+from thirdparty.gaussian_splatting.utils.sh_utils import eval_sh
 
 
 def render(

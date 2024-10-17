@@ -41,4 +41,5 @@ cam:  #NOTE: intrinsic is different per scene in TUM
   W_out: 512
 
 data:
-  output: /cluster/work/cvl/esandstroem/src/splat-slam/output/TUM_RGBD
+  dataset_root: datasets/TUM_RGBD
+  output: output/TUM_RGBD
