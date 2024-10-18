@@ -1,0 +1,19 @@
+services:
+  splat-slam:
+    container_name: splat-slam
+    build:
+      context: .
+      dockerfile: Dockerfile
+    entrypoint: /usr/local/bin/download_pretrained_model.sh
+    command: tail -f /dev/null
+    tty: true
+    volumes:
+      - ./pretrained_models:/workspace/Splat-SLAM/pretrained
+      - ./data:/workspace/Splat-SLAM/datasets
+    deploy:
+      resources:
+        reservations:
+          devices:
+            - driver: nvidia
+              device_ids: ["0"]
+              capabilities: [gpu]
