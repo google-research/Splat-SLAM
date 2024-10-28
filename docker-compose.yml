@@ -8,7 +8,7 @@ services:
     command: tail -f /dev/null
     tty: true
     volumes:
-      - ./pretrained_models:/workspace/Splat-SLAM/pretrained
+      - ./pretrained:/workspace/Splat-SLAM/pretrained
       - ./data:/workspace/Splat-SLAM/datasets
     deploy:
       resources:
